@@ -1,0 +1,593 @@
+/* =============================================================================
+   PORTFOLIO STYLES
+   Table of Contents:
+   1. Base & Reset
+   2. Header Text
+   3. Layout - Header (Skip Links)
+   4. Layout - Sections (Common)
+   5. Section 1: Intro
+   6. Section 2: Experience (Software Development)
+   7. Section 3: Certifications
+   8. Section 4: Skills
+   9. Layout - Footer
+   10. Components - Pop Up
+   11. Utilities - Intersection Observer Animations
+   12. Media Queries
+============================================================================= */
+
+/* Font Import */
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Lato:wght@700&family=Roboto:wght@300&display=swap');
+
+
+/* =============================================================================
+   1. BASE & RESET
+============================================================================= */
+
+body {
+    background-color: #000;
+}
+
+main {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+section {
+    display: grid;
+    place-items: center;
+    align-content: center;
+    min-height: 100vh;
+    width: 100%;
+}
+
+
+/* =============================================================================
+   2. HEADER TEXT
+============================================================================= */
+
+.sn-header-text {
+    color: #62D84E;
+    font-family: 'Lato', sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.11;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.sn-header-text--green {
+    color: #62D84E;
+}
+
+.skills-header-text {
+    color: #fff;
+    font-family: 'Lato', sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1.11;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* =============================================================================
+   3. LAYOUT - HEADER (SKIP LINKS)
+============================================================================= */
+
+.skip-link {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 99999;
+    padding: .5rem;
+    background-color: #49494A;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    translate: 0 -100%;
+    transition: translate 150ms ease-in-out;
+}
+
+.skip-link:focus {
+    translate: 0;
+}
+
+.skip-link:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.skip-link--contact {
+    cursor: pointer;
+}
+
+
+/* =============================================================================
+   4. LAYOUT - SECTIONS (COMMON)
+============================================================================= */
+
+/* Background image shared styles */
+.sd-background-image,
+.skills-background-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+/* =============================================================================
+   5. SECTION 1: INTRO
+============================================================================= */
+
+.about-1 {
+    color: #fff;
+    font-family: 'Fredoka One', cursive;
+}
+
+.about-1 .hidden {
+    filter: blur(10px);
+    transform: translateX(-50%);
+}
+
+.about-1 .show {
+    filter: blur(0);
+    transform: translateX(0);
+}
+
+.header-name {
+    color: #4D95B4;
+    font-size: 4rem;
+}
+
+/* Staggered animation delays for intro text */
+.about-1 > .hidden:nth-child(2) {
+    transition-delay: 1000ms;
+}
+
+.about-1 > .hidden:nth-child(3) {
+    transition-delay: 1200ms;
+}
+
+/* Profile image */
+#profile-pic .hidden {
+    filter: blur(3px);
+    transform: scale(0.5);
+}
+
+#profile-pic .show {
+    filter: blur(0);
+    transform: scale(1);
+}
+
+#profile-pic .about-image {
+    filter: grayscale(0.6);
+}
+
+.about-image {
+    width: 250px;
+    height: 250px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    object-fit: cover;
+    background-position: center 0;
+    background-repeat: no-repeat;
+}
+
+
+/* =============================================================================
+   6. SECTION 2: EXPERIENCE (SOFTWARE DEVELOPMENT)
+============================================================================= */
+
+.sd-background {
+    position: relative;
+    padding: 0 2rem;
+}
+
+.sd-background-image {
+    background-image: url('./images/backgrounds/section2-background.jpg');
+    background-color: #4D95B4;
+    filter: grayscale(0.8) blur(2px);
+}
+
+.sd-background .hidden {
+    filter: blur(5px);
+    transform: translateX(-50%);
+}
+
+.sd-background .show {
+    filter: blur(0);
+    transform: translateX(0);
+}
+
+.sn-section-text {
+    color: #fff;
+    font-family: 'Lato', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.11;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Staggered animation delays for experience list */
+.sd-background .sn-section-text-section-delay-1 { transition-delay: 250ms; }
+.sd-background .sn-section-text-section-delay-2 { transition-delay: 500ms; }
+.sd-background .sn-section-text-section-delay-3 { transition-delay: 750ms; }
+.sd-background .sn-section-text-section-delay-4 { transition-delay: 1000ms; }
+.sd-background .sn-section-text-section-delay-5 { transition-delay: 1250ms; }
+.sd-background .sn-section-text-section-delay-6 { transition-delay: 1500ms; }
+.sd-background .sn-section-text-section-delay-7 { transition-delay: 1750ms; }
+
+/* Background Image Transition */
+
+.sd-background .background-hidden {
+    opacity: 0;
+    transition: all 1s;
+}
+
+.sd-background .background-show {
+    opacity: 0.4;
+}
+
+
+/* =============================================================================
+   7. SECTION 3: CERTIFICATIONS
+============================================================================= */
+
+.certifications {
+    margin: 1rem 0;
+}
+
+.certifications .hidden {
+    filter: blur(5px);
+    transform: translateX(-50%);
+}
+
+.certifications .show {
+    filter: blur(0);
+    transform: translateX(0);
+}
+
+.certs {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 1.5rem 0;
+}
+
+.certsCarousel {
+    display: none;
+    margin: 1.5rem 0;
+}
+
+.cert {
+    margin: 1.5rem;
+    object-fit: cover;
+}
+
+/* Staggered animation delays for cert badges */
+.cert:nth-child(2) { transition-delay: 200ms; }
+.cert:nth-child(3) { transition-delay: 400ms; }
+.cert:nth-child(4) { transition-delay: 600ms; }
+.cert:nth-child(5) { transition-delay: 800ms; }
+
+
+/* =============================================================================
+   8. SECTION 4: SKILLS
+============================================================================= */
+
+.skills {
+    position: relative;
+}
+
+.skills-background-image {
+    background-image: url('./images/backgrounds/section4-background2.jpg');
+    filter: grayscale(0.8) blur(1.5px);
+}
+
+.skills .background-hidden {
+    opacity: 0;
+    transition: all 1s;
+}
+
+.skills .background-show {
+    opacity: 0.4;
+}
+
+.skills .hidden {
+    filter: blur(5px);
+    transform: translateX(-50%);
+}
+
+.skills .show {
+    filter: blur(0);
+    transform: translateX(0);
+}
+
+.skills-img {
+    height: 75px;
+    margin: 1rem;
+    text-align: center;
+}
+
+/* Staggered animation delays for skill icons */
+.skills-img:nth-child(2)  { transition-delay: 200ms; }
+.skills-img:nth-child(3)  { transition-delay: 300ms; }
+.skills-img:nth-child(4)  { transition-delay: 400ms; }
+.skills-img:nth-child(5)  { transition-delay: 500ms; }
+.skills-img:nth-child(6)  { transition-delay: 600ms; }
+.skills-img:nth-child(7)  { transition-delay: 700ms; }
+.skills-img:nth-child(8)  { transition-delay: 800ms; }
+.skills-img:nth-child(9)  { transition-delay: 900ms; }
+.skills-img:nth-child(10) { transition-delay: 1000ms; }
+.skills-img:nth-child(11) { transition-delay: 1100ms; }
+.skills-img:nth-child(12) { transition-delay: 1200ms; }
+.skills-img:nth-child(13) { transition-delay: 1300ms; }
+.skills-img:nth-child(14) { transition-delay: 1400ms; }
+
+
+/* =============================================================================
+   9. LAYOUT - FOOTER
+============================================================================= */
+
+.footer-container {
+    bottom: 0;
+    width: inherit;
+    padding: 20px 0;
+}
+
+.footer-logo {
+    margin: 0 50px 0 0;
+    text-align: right;
+}
+
+.footer-logo img {
+    cursor: pointer;
+}
+
+.footer-links {
+    text-align: left;
+}
+
+.footer-links a,
+.footer-email-link {
+    color: #fff;
+    text-decoration: none;
+}
+
+.footer-links a:hover,
+.footer-email-link:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.footer-location {
+    color: #fff;
+}
+
+.sep {
+    display: inline-block;
+    margin: 0 8px;
+    opacity: 0.5;
+}
+
+.footer-socialLinks {
+    text-align: right;
+}
+
+.footer-socialLinks a {
+    line-height: 1.5;
+    text-align: right;
+    text-decoration: none;
+}
+
+.footer-socialLinks a:nth-child(2) {
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+
+/* =============================================================================
+   10. COMPONENTS - POP UP
+============================================================================= */
+
+.popUpFrame {
+    position: fixed;
+    right: 1rem;
+    bottom: 0;
+    z-index: 999;
+    overflow: hidden;
+}
+
+.popUpCloseButton {
+    width: 28px;
+    margin: 0 auto 8px;
+    padding: 5px;
+    border: 2px solid #000;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 18px;
+    font-weight: 900;
+    text-align: center;
+    opacity: 0;
+}
+
+.popUpCloseButton:hover {
+    cursor: pointer;
+    user-select: none;
+}
+
+.popUpCloseButtonFadeIn {
+    animation: closeFade 10s forwards;
+}
+
+@keyframes closeFade {
+    0%   { opacity: 0; }
+    10%  { opacity: 0; }
+    20%  { opacity: 1; }
+    80%  { opacity: 1; }
+    90%  { opacity: 0; }
+    100% { opacity: 0; }
+}
+
+.popUpImage {
+    width: 400px;
+    height: 400px;
+    transform: translateY(100%);
+}
+
+.popUpImage:hover {
+    cursor: pointer;
+}
+
+.imgFadeIn {
+    animation: popUpTransform 10s forwards;
+}
+
+@keyframes popUpTransform {
+    0%   { transform: translateY(100%); }
+    10%  { transform: translateY(0%); }
+    90%  { transform: translateY(0%); }
+    100% { transform: translateY(100%); }
+}
+
+
+/* =============================================================================
+   11. UTILITIES - INTERSECTION OBSERVER ANIMATIONS
+============================================================================= */
+
+.hidden {
+    opacity: 0;
+    transition: all 1s;
+}
+
+.show {
+    opacity: 1;
+}
+
+
+/* =============================================================================
+   12. MEDIA QUERIES
+============================================================================= */
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion) {
+    .hidden {
+        transition: none;
+    }
+}
+
+/* Tablet and below */
+@media screen and (max-width: 767px) {
+    .footer-socialLinks,
+    .footer-links,
+    .footer-logo,
+    .about-1 {
+        text-align: center;
+    }
+
+    .footer-links,
+    .footer-socialLinks {
+        margin: .75rem 0;
+    }
+
+    .skills-header-text,
+    .sn-header-text {
+        font-size: 32px;
+    }
+
+    .sn-section-text {
+        font-size: 16px;
+    }
+
+    .certs {
+        display: none;
+    }
+
+    .certsCarousel {
+        display: block;
+    }
+
+    .popUpFrame {
+        left: 0;
+        right: 0;
+        margin: auto;
+        text-align: center;
+    }
+}
+
+/* Small phones */
+@media screen and (max-width: 414px) {
+    .about-1 > .header-name {
+        font-size: 2.75rem;
+    }
+
+    .about-1 > .sub-head {
+        font-size: 1.25rem;
+    }
+
+    .skills-img {
+        height: 55px;
+    }
+
+    .popUpImage {
+        width: 300px;
+        height: 300px;
+    }
+}
+
+/* Extra small phones */
+@media screen and (max-width: 305px) {
+    .popUpImage {
+        width: 275px;
+        height: 275px;
+    }
+}
+
+
+/* =============================================================================
+   13. SWEETALERT2 RESPONSIVE OVERRIDES
+============================================================================= */
+
+@media screen and (max-width: 767px) {
+    .swal2-popup {
+        width: 90vw !important;
+        padding: 1.25rem !important;
+        font-size: 0.95rem !important;
+    }
+
+    .swal2-input,
+    .swal2-textarea {
+        font-size: 0.95rem !important;
+    }
+}
+
+@media screen and (max-width: 414px) {
+    .swal2-popup {
+        width: 95vw !important;
+        padding: 1rem !important;
+        font-size: 0.9rem !important;
+    }
+
+    .swal2-input,
+    .swal2-textarea {
+        font-size: 0.9rem !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        width: auto !important;
+    }
+
+    .swal2-title {
+        font-size: 1.25rem !important;
+    }
+}

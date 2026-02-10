@@ -1,0 +1,54 @@
+============================================  .htaccess file
+***NOTE 1:*** Include in build (Root) folder
+***Note 2:*** Must run "sudo a2enmod headers" in command line to enable headers mod_rewrite
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    Redirect /resume https://docs.google.com/document/d/e/2PACX-1vQbXTRzdV-BcC8i2GIAHkoCZ_nA4n3l3oNsjpguv29am3AyN2VGstlp2um-pzmR9uWFPoAkmJ905Wq3/pub 
+    ErrorDocument 404 https://gregroques.com
+</IfModule>
+
+========================================== config
+
+================= HTTP
+
+<VirtualHost *:80>
+  DocumentRoot /var/www/[PATH_TO_FOLDER_WITH_BUILD_FILE]
+    ServerName gregroques.com
+    ServerAlias www.gregroques.com
+    <Directory "/var/www/[PATH_TO_FOLDER_WITH_BUILD_FILE]">
+        allow from all
+        AllowOverride All
+        Order allow,deny
+        Options -Indexes
+    </Directory>
+</VirtualHost>
+
+***NOTE:*** Certbot will add rewrite rules. Will look like below:
+    RewriteEngine on
+    RewriteCond %{SERVER_NAME} =www.gregroques.com [OR]
+    RewriteCond %{SERVER_NAME} =gregroques.com
+    RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
+
+================= HTTPS
+
+***NOTE 1:*** Certbot will take care of this; pay attention to the Proxy information, as you will need to add this. ONLY include Insta link if including Instagram Widget in final build.
+***NOTE 2:*** You will need to install the following for your proxy's to work:
+– sudo a2enmod proxy
+– sudo a2enmod proxy_http
+
+<VirtualHost *:443>
+  DocumentRoot /var/www/[PATH_TO_FOLDER_WITH_BUILD_FILE]
+    ServerName gregroques.com
+    ServerAlias www.gregroques.com
+    <Directory "/var/www/[PATH_TO_FOLDER_WITH_BUILD_FILE]">
+        allow from all
+        AllowOverride All
+        Order allow,deny
+        Options -Indexes
+    </Directory>
+
+    Include /etc/letsencrypt/options-ssl-apache.conf
+    SSLCertificateFile /etc/letsencrypt/live/[NAME_OF_YOUR_AWS_INSTANCE...AWS AUTO-POPULATES THIS]/fullchain.pem
+    SSLCertificateKeyFile /etc/letsencrypt/live/[NAME_OF_YOUR_AWS_INSTANCE...AWS AUTO-POPULATES THIS]/privkey.pem
+</VirtualHost>
