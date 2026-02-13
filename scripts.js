@@ -8,6 +8,7 @@
    3. Core Functions
    4. Intersection Observer
    5. Pop-up Component
+   6. Contact Form (SweetAlert2)
 ============================================================================= */
 
 
@@ -217,6 +218,7 @@ async function openContactForm() {
         html:
             '<input id="swal-name" class="swal2-input" placeholder="Name" type="text" maxlength="100">' +
             '<input id="swal-email" class="swal2-input" placeholder="Email" type="email">' +
+            '<input id="swal-phone" class="swal2-input" placeholder="Phone (optional)" type="tel" maxlength="10">' +
             '<input id="swal-subject" class="swal2-input" placeholder="Subject" type="text" maxlength="200">' +
             '<textarea id="swal-message" class="swal2-textarea" placeholder="Message" maxlength="5000"></textarea>',
         focusConfirm: false,
@@ -229,6 +231,7 @@ async function openContactForm() {
         preConfirm: async () => {
             const name = document.getElementById("swal-name").value.trim();
             const email = document.getElementById("swal-email").value.trim();
+            const phone = document.getElementById("swal-phone").value.trim();
             const subject = document.getElementById("swal-subject").value.trim();
             const message = document.getElementById("swal-message").value.trim();
 
@@ -243,11 +246,20 @@ async function openContactForm() {
                 return false;
             }
 
+            if (phone && !/^\d{10}$/.test(phone)) {
+                Swal.showValidationMessage("Phone number must be exactly 10 digits.");
+                return false;
+            }
+
+            const formattedPhone = phone
+                ? `${phone.slice(0, 3)}-${phone.slice(3, 6)}-${phone.slice(6)}`
+                : "";
+
             try {
                 const response = await fetch(CONTACT_API_URL, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ name, email, subject, message }),
+                    body: JSON.stringify({ name, email, phone: formattedPhone, subject, message }),
                 });
 
                 const data = await response.json();
