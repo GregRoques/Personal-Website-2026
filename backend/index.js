@@ -22,7 +22,7 @@ const app = express();
  * value set in the CORS_ORIGIN environment variable.
  */
 const corsOptions = {
-  origin: process.env.CORS_ORIGIN,
+  origin: process.env.CORS_ORIGIN || "http://localhost:3000",
   methods: ["POST"],
   optionsSuccessStatus: 200,
 };

@@ -111,4 +111,4 @@ router.post("/", contactLimiter, validationRules, async (req, res) => {
   }
 });
 
-module.exports = router;
+module.exports = router
