@@ -59,8 +59,6 @@
         ProxyPass http://localhost:2000/personaldata/
         ProxyPassReverse http://localhost:2000/personaldata/
     </Location>
-    ProxyPass /gtag/ https://www.googletagmanager.com/gtag/
-    ProxyPassReverse /gtag/ https://www.googletagmanager.com/gtag/
 
     Include /etc/letsencrypt/options-ssl-apache.conf
     SSLCertificateFile /etc/letsencrypt/live/[NAME_OF_YOUR_AWS_INSTANCE...AWS AUTO-POPULATES THIS]/fullchain.pem
