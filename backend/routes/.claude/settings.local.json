@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:developers.facebook.com)",
+      "WebFetch(domain:elfsight.com)",
+      "WebFetch(domain:storrito.com)",
+      "WebFetch(domain:web.swipeinsight.app)"
+    ]
+  }
+}

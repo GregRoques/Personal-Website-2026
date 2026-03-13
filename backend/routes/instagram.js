@@ -26,7 +26,7 @@ const transporter = nodemailer.createTransport({
 const TOKEN_PATH = path.join(__dirname, "../util/instaToken.json");
 const CACHE_PATH = path.join(__dirname, "../util/instaCache.json");
 
-const INSTAGRAM_API = "https://graph.instagram.com";
+const INSTAGRAM_API = "https://graph.instagram.com/v25.0";
 const MEDIA_FIELDS =
   "media_url,permalink,caption,timestamp,media_type,thumbnail_url,username,children{media_url,media_type,thumbnail_url}";
 const POST_LIMIT = 5;
