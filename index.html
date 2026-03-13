@@ -73,7 +73,8 @@
         },
         "sameAs": [
             "https://www.linkedin.com/in/gregroques/",
-            "https://github.com/gregroques"
+            "https://github.com/gregroques",
+            "https://www.instagram.com/gregroques"
         ],
         "knowsAbout": ["ServiceNow", "JavaScript", "AngularJs", "Certified Application Developer", "Certified System Administrator" "HRSD", "CSM", "ITSM", "Service Portal", "Flow Designer", "REST API"]
     }
@@ -228,7 +229,39 @@
                     src="./images/technologies/typescript.png">
             </div>
         </section>
+
+        <!-- Section 5: Instagram -->
+        <section id="instagram" class="instagram-section" style="display: none;">
+            <h2 class="sn-header-text sn-header-text--green hidden">Follow Me</h2>
+            <div id="insta-feed" class="insta-feed"></div>
+            <div id="insta-carousel" class="instaCarousel carousel slide" data-bs-ride="carousel">
+                <div id="insta-carousel-inner" class="carousel-inner"></div>
+            </div>
+            <div class="insta-handle">
+                <a id="insta-handle-link" href="#" target="_blank" rel="noopener noreferrer nofollow"></a>
+            </div>
+        </section>
     </main>
+
+    <!-- Instagram Pop-Up Modal -->
+    <div id="insta-modal" class="insta-modal-overlay" style="display: none;" onclick="closeInstaPopup(event)">
+        <div class="insta-modal-close" onclick="closeInstaPopup(event, true)">X</div>
+        <div class="insta-modal-container">
+            <div class="insta-modal-header">
+                <a id="insta-modal-username" href="#" target="_blank" rel="noopener noreferrer nofollow"></a>
+            </div>
+            <div class="insta-modal-body">
+                <div id="insta-modal-nav-left" class="insta-modal-nav insta-modal-nav--left" onclick="navigateInstaChild(-1)">&lt;</div>
+                <div id="insta-modal-nav-right" class="insta-modal-nav insta-modal-nav--right" onclick="navigateInstaChild(1)">&gt;</div>
+                <img id="insta-modal-image" class="insta-modal-image" src="" alt="Instagram post">
+            </div>
+            <div class="insta-modal-caption">
+                <b id="insta-modal-date"></b>
+                <span id="insta-modal-page"></span>
+                <span id="insta-modal-caption-text"></span>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer id="contact" class="footer-container hidden">

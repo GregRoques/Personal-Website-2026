@@ -9,6 +9,7 @@
    4. Intersection Observer
    5. Pop-up Component
    6. Contact Form (SweetAlert2)
+   7. Instagram Feed
 ============================================================================= */
 
 
@@ -17,6 +18,9 @@
 ============================================================================= */
 
 const CONTACT_API_URL = `${window.location.protocol}//${window.location.hostname}/personaldata`;
+//const INSTAGRAM_API_URL = `${window.location.protocol}//${window.location.hostname}/instagram`;
+
+const INSTAGRAM_API_URL = `http:localhost:2000/instagram`;
 
 const POPUP_CONFIG = {
     endDate: new Date(2026, 3, 11),
@@ -56,6 +60,9 @@ function initApp() {
     document.querySelectorAll("img").forEach((img) => {
         secureImage(img);
     });
+
+    // Fetch Instagram data on load
+    fetchInstagramData();
 
     // Initialize intersection observer
     const hiddenElements = document.querySelectorAll(".hidden, .background-hidden");
@@ -289,4 +296,170 @@ async function openContactForm() {
             confirmButtonColor: "#62D84E",
         });
     }
+}
+
+
+/* =============================================================================
+   7. INSTAGRAM FEED
+============================================================================= */
+
+/** @type {{ userName: string, posts: Array }} */
+let instaData = { userName: "", posts: [] };
+
+/** @type {number} Index of the currently open post in the modal */
+let instaModalIndex = 0;
+
+/** @type {number} Index of the current child image within a carousel post */
+let instaChildIndex = 0;
+
+/**
+ * @description Fetches Instagram post data from the backend API.
+ * Renders the Instagram section if valid data is returned;
+ * keeps the section hidden otherwise.
+ */
+async function fetchInstagramData() {
+    try {
+        const response = await fetch(INSTAGRAM_API_URL);
+        if (!response.ok) return;
+
+        const data = await response.json();
+        const { userName, posts } = data;
+
+        if (!posts || !Array.isArray(posts) || posts.length < 1) return;
+
+        instaData = data;
+        renderInstagramSection(userName, posts);
+    } catch {
+        // Silently fail — section stays hidden
+    }
+}
+
+/**
+ * @description Renders the Instagram section with post images,
+ * the Bootstrap carousel for mobile, and the username link.
+ * Shows the section and registers new elements with the Intersection Observer.
+ * @param {string} userName - Instagram username from the API.
+ * @param {Array<Object>} posts - Array of post objects.
+ */
+function renderInstagramSection(userName, posts) {
+    const section = document.getElementById("instagram");
+    const feed = document.getElementById("insta-feed");
+    const carouselInner = document.getElementById("insta-carousel-inner");
+    const handleLink = document.getElementById("insta-handle-link");
+
+    if (!section || !feed || !carouselInner || !handleLink) return;
+
+    // Build desktop feed cards
+    const feedHtml = posts.map((post, i) =>
+        `<div class="insta-card hidden" onclick="openInstaPopup(${i})">
+            <img src="${post.mediaUrl}" alt="Instagram post ${i + 1}" loading="lazy">
+        </div>`
+    ).join("");
+
+    feed.innerHTML = feedHtml;
+
+    // Build mobile carousel items
+    const carouselHtml = posts.map((post, i) =>
+        `<div class="carousel-item${i === 0 ? " active" : ""} text-center" onclick="openInstaPopup(${i})">
+            <img src="${post.mediaUrl}" alt="Instagram post ${i + 1}" loading="lazy">
+        </div>`
+    ).join("");
+
+    carouselInner.innerHTML = carouselHtml;
+
+    // Set username link
+    handleLink.href = `https://www.instagram.com/${userName}/`;
+    handleLink.textContent = `@${userName}`;
+
+    // Show section
+    section.style.display = "";
+
+    // Secure new images and register with Intersection Observer
+    section.querySelectorAll("img").forEach((img) => secureImage(img));
+
+    const newHiddenElements = section.querySelectorAll(".hidden");
+    if (newHiddenElements.length > 0) {
+        initIntersectionObserver(newHiddenElements);
+    }
+}
+
+/**
+ * @description Opens the Instagram popup modal for a specific post.
+ * Displays the post image (or first carousel child), caption, and date.
+ * @param {number} index - Index of the post in the instaData.posts array.
+ */
+function openInstaPopup(index) {
+    const { userName, posts } = instaData;
+    if (!posts || index < 0 || index >= posts.length) return;
+
+    instaModalIndex = index;
+    instaChildIndex = 0;
+
+    const post = posts[index];
+    const modal = document.getElementById("insta-modal");
+    const modalImage = document.getElementById("insta-modal-image");
+    const modalUsername = document.getElementById("insta-modal-username");
+    const modalDate = document.getElementById("insta-modal-date");
+    const modalPage = document.getElementById("insta-modal-page");
+    const modalCaption = document.getElementById("insta-modal-caption-text");
+    const navLeft = document.getElementById("insta-modal-nav-left");
+    const navRight = document.getElementById("insta-modal-nav-right");
+
+    // Set content
+    modalUsername.href = post.permalink;
+    modalUsername.textContent = `@${userName}`;
+    modalDate.textContent = post.date;
+    modalCaption.textContent = post.caption ? ` ${post.caption}` : "";
+
+    // Set image — show first child if carousel, else main image
+    const hasChildren = post.children && post.children.length > 0;
+    modalImage.src = hasChildren ? post.children[0] : post.mediaUrl;
+
+    // Show/hide carousel nav
+    navLeft.style.display = hasChildren ? "" : "none";
+    navRight.style.display = hasChildren ? "" : "none";
+
+    // Update page indicator
+    modalPage.textContent = hasChildren
+        ? ` 1/${post.children.length}: `
+        : "";
+
+    // Secure modal image
+    secureImage(modalImage);
+
+    // Show modal
+    modal.style.display = "";
+    document.body.style.overflow = "hidden";
+}
+
+/**
+ * @description Navigates between child images in a carousel post.
+ * @param {number} direction - -1 for previous, 1 for next.
+ */
+function navigateInstaChild(direction) {
+    const post = instaData.posts[instaModalIndex];
+    if (!post || !post.children || post.children.length === 0) return;
+
+    const total = post.children.length;
+    instaChildIndex = (instaChildIndex + direction + total) % total;
+
+    const modalImage = document.getElementById("insta-modal-image");
+    const modalPage = document.getElementById("insta-modal-page");
+
+    modalImage.src = post.children[instaChildIndex];
+    modalPage.textContent = ` ${instaChildIndex + 1}/${total}: `;
+}
+
+/**
+ * @description Closes the Instagram popup modal. Triggered by clicking
+ * the "X" button or clicking outside the modal container.
+ * @param {Event} event - The click event.
+ * @param {boolean} [force=false] - Force close regardless of click target.
+ */
+function closeInstaPopup(event, force) {
+    if (!force && event.target !== event.currentTarget) return;
+
+    const modal = document.getElementById("insta-modal");
+    modal.style.display = "none";
+    document.body.style.overflow = "";
 }

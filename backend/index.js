@@ -5,7 +5,7 @@
  * then mounts the contact form route.
  */
 
-require("dotenv").config();
+require("dotenv").config({ path: __dirname + "/util/.env" });
 
 const express = require("express");
 const cors = require("cors");
@@ -14,6 +14,7 @@ const morgan = require("morgan");
 const rateLimit = require("express-rate-limit");
 
 const personalData = require("./routes/personalData");
+const instagram = require("./routes/instagram");
 
 const app = express();
 
@@ -22,8 +23,8 @@ const app = express();
  * value set in the CORS_ORIGIN environment variable.
  */
 const corsOptions = {
-  origin: process.env.CORS_ORIGIN || "http://localhost:3000",
-  methods: ["POST"],
+  origin: process.env.CORS_ORIGIN || "*",
+  methods: ["GET", "POST"],
   optionsSuccessStatus: 200,
 };
 
@@ -59,6 +60,13 @@ app.use(globalLimiter);
  * messages and forwards them via SendGrid email.
  */
 app.use("/personaldata", personalData);
+
+/**
+ * @route /instagram
+ * @description Instagram feed endpoint — returns cached Instagram posts
+ * fetched daily via the Instagram Graph API.
+ */
+app.use("/instagram", instagram);
 
 /**
  * @route GET /health

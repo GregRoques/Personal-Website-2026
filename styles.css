@@ -9,10 +9,12 @@
    6. Section 2: Experience (Software Development)
    7. Section 3: Certifications
    8. Section 4: Skills
-   9. Layout - Footer
-   10. Components - Pop Up
-   11. Utilities - Intersection Observer Animations
-   12. Media Queries
+   9. Section 5: Instagram
+   10. Layout - Footer
+   11. Components - Pop Up
+   12. Utilities - Intersection Observer Animations
+   13. Media Queries
+   14. SweetAlert2 Responsive Overrides
 ============================================================================= */
 
 /* Font Import */
@@ -337,7 +339,213 @@ section {
 
 
 /* =============================================================================
-   9. LAYOUT - FOOTER
+   9. SECTION 5: INSTAGRAM
+============================================================================= */
+
+.instagram-section {
+    padding: 3rem 1rem;
+}
+
+.instagram-section .hidden {
+    filter: blur(5px);
+    transform: translateX(-50%);
+}
+
+.instagram-section .show {
+    filter: blur(0);
+    transform: translateX(0);
+}
+
+.insta-feed {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 2rem auto;
+    max-width: 1200px;
+}
+
+.insta-card {
+    width: 220px;
+    height: 220px;
+    border-radius: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s, border-color 0.3s;
+}
+
+.insta-card:hover {
+    transform: scale(1.03);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.insta-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.instaCarousel {
+    display: none;
+    margin: 2rem auto;
+    max-width: 280px;
+}
+
+.instaCarousel .carousel-item img {
+    width: 250px;
+    height: 250px;
+    border-radius: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    object-fit: cover;
+    object-position: center;
+    margin: 0 auto;
+}
+
+.insta-handle {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.insta-handle a {
+    color: #fff;
+    font-family: 'Lato', sans-serif;
+    font-size: 1.25rem;
+    text-decoration: underline;
+}
+
+.insta-handle a:hover {
+    color: #62D84E;
+}
+
+/* Staggered animation delays for insta cards */
+.insta-card:nth-child(2) { transition-delay: 150ms; }
+.insta-card:nth-child(3) { transition-delay: 300ms; }
+.insta-card:nth-child(4) { transition-delay: 450ms; }
+.insta-card:nth-child(5) { transition-delay: 600ms; }
+
+/* Instagram Modal */
+.insta-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+.insta-modal-close {
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 8px;
+    cursor: pointer;
+    animation: instaCloseFade 0.75s forwards;
+    animation-delay: 1s;
+    opacity: 0;
+    user-select: none;
+}
+
+.insta-modal-close:hover {
+    transform: scale(0.9);
+    transition: transform 0.25s;
+}
+
+@keyframes instaCloseFade {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.insta-modal-container {
+    width: 400px;
+    max-height: 90vh;
+    background-color: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    animation: instaZoomIn 0.75s forwards;
+    animation-delay: 0.25s;
+    transform: scale(0);
+}
+
+@keyframes instaZoomIn {
+    from { transform: scale(0); }
+    to   { transform: scale(1); }
+}
+
+.insta-modal-header {
+    padding: 15px 20px;
+    font-family: 'Lato', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.insta-modal-header a {
+    color: #000;
+    text-decoration: none;
+}
+
+.insta-modal-header a:hover {
+    text-decoration: underline;
+}
+
+.insta-modal-body {
+    position: relative;
+    width: 350px;
+    height: 350px;
+    margin: 0 25px 16px;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.insta-modal-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+}
+
+.insta-modal-nav {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    font-size: 2rem;
+    font-weight: bold;
+    padding: 0 10px;
+    cursor: pointer;
+    user-select: none;
+    z-index: 1;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+.insta-modal-nav--left {
+    left: 0;
+}
+
+.insta-modal-nav--right {
+    right: 0;
+}
+
+.insta-modal-caption {
+    font-size: 15px;
+    padding: 0 25px 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+}
+
+
+/* =============================================================================
+   10. LAYOUT - FOOTER
 ============================================================================= */
 
 .footer-container {
@@ -518,6 +726,33 @@ section {
         display: block;
     }
 
+    .insta-feed {
+        display: none;
+    }
+
+    .instaCarousel {
+        display: block;
+    }
+
+    .insta-modal-container {
+        width: 300px;
+    }
+
+    .insta-modal-body {
+        width: 250px;
+        height: 250px;
+        margin: 0 25px 12px;
+    }
+
+    .insta-modal-header {
+        font-size: 18px;
+    }
+
+    .insta-modal-caption {
+        font-size: 13px;
+        -webkit-line-clamp: 3;
+    }
+
     .popUpFrame {
         left: 0;
         right: 0;
@@ -543,6 +778,16 @@ section {
     .popUpImage {
         width: 300px;
         height: 300px;
+    }
+
+    .insta-card {
+        width: 180px;
+        height: 180px;
+    }
+
+    .instaCarousel .carousel-item img {
+        width: 200px;
+        height: 200px;
     }
 }
 
