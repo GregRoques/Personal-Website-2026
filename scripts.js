@@ -18,9 +18,12 @@
 ============================================================================= */
 
 const CONTACT_API_URL = `${window.location.protocol}//${window.location.hostname}/personaldata`;
-//const INSTAGRAM_API_URL = `${window.location.protocol}//${window.location.hostname}/instagram`;
+const INSTAGRAM_API_URL = `${window.location.protocol}//${window.location.hostname}/instagram`;
 
-const INSTAGRAM_API_URL = `http:localhost:2000/instagram`;
+// Local Testing
+//const INSTAGRAM_API_URL = `http:localhost:2000/instagram`;
+//const CONTACT_API_URL = `http:localhost:2000/personaldata`
+
 
 const POPUP_CONFIG = {
     endDate: new Date(2026, 3, 11),
