@@ -409,7 +409,7 @@ section {
     margin-top: 1rem;
 }
 
-.insta-handle a, .insta-handle a:active, .insta-handle a:visited {
+.insta-handle a, .insta-handle a:link, .insta-handle a:active, .insta-handle a:visited {
     color: #fff;
     font-family: 'Lato', sans-serif;
     font-size: 1.25rem;
