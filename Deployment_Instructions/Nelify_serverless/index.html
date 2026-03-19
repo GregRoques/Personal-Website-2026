@@ -8,12 +8,12 @@
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
 
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=[GTAG_GOES_HERE]"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BYM1R0D2GH"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-      gtag('config', '[GTAG_GOES_HERE]');
+      gtag('config', 'G-BYM1R0D2GH');
     </script>
 
     <!-- Meta Data -->
@@ -73,10 +73,12 @@
         },
         "sameAs": [
             "https://www.linkedin.com/in/gregroques/",
-            "https://github.com/gregroques",
-            "https://www.instagram.com/gregroques"
+            "https://github.com/gregroques"
         ],
-        "knowsAbout": ["ServiceNow", "JavaScript", "AngularJs", "Certified Application Developer", "Certified System Administrator" "HRSD", "CSM", "ITSM", "Service Portal", "Flow Designer", "REST API", "Typescript"]
+        "knowsAbout": ["ServiceNow", "JavaScript", "AngularJs", "Certified Application Developer", 
+            "Certified System Administrator" "HRSD", "CSM", "ITSM",
+            "Service Portal", "MySQL", "TypeScript", "Bootstrap", "Claude Code", 
+            "Flow Designer", "REST API"]
     }
     </script>
 
@@ -89,7 +91,6 @@
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous">
     </script>
-    <script defer src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script defer src="scripts.js"></script>
 </head>
 
@@ -229,39 +230,7 @@
                     src="./images/technologies/typescript.png">
             </div>
         </section>
-
-        <!-- Section 5: Instagram -->
-        <section id="instagram" class="instagram-section" style="display: none;">
-            <h2 class="sn-header-text sn-header-text--green hidden">Follow Me</h2>
-            <div id="insta-feed" class="insta-feed"></div>
-            <div id="insta-carousel" class="instaCarousel carousel slide" data-bs-ride="carousel">
-                <div id="insta-carousel-inner" class="carousel-inner"></div>
-            </div>
-            <div class="insta-handle">
-                <a id="insta-handle-link" href="#" target="_blank" rel="noopener noreferrer nofollow"></a>
-            </div>
-        </section>
     </main>
-
-    <!-- Instagram Pop-Up Modal -->
-    <div id="insta-modal" class="insta-modal-overlay" style="display: none;" onclick="closeInstaPopup(event)">
-        <div class="insta-modal-close" onclick="closeInstaPopup(event, true)">X</div>
-        <div class="insta-modal-container">
-            <div class="insta-modal-header">
-                <a id="insta-modal-username" href="#" target="_blank" rel="noopener noreferrer nofollow"></a>
-            </div>
-            <div class="insta-modal-body">
-                <div id="insta-modal-nav-left" class="insta-modal-nav insta-modal-nav--left" onclick="navigateInstaChild(-1)">&lt;</div>
-                <div id="insta-modal-nav-right" class="insta-modal-nav insta-modal-nav--right" onclick="navigateInstaChild(1)">&gt;</div>
-                <img id="insta-modal-image" class="insta-modal-image" src="" alt="Instagram post">
-            </div>
-            <div class="insta-modal-caption">
-                <b id="insta-modal-date"></b>
-                <span id="insta-modal-page"></span>
-                <span id="insta-modal-caption-text"></span>
-            </div>
-        </div>
-    </div>
 
     <!-- Footer -->
     <footer id="contact" class="footer-container hidden">
@@ -283,7 +252,7 @@
                         Atlanta, GA
                     </span>
                     <span class="sep">|</span>
-                    <span class="footer-email-link" onclick="openContactForm()">Email</span>
+                    <a href="mailto:greg@gregroques.com">Email</a>
                     <span class="sep">|</span>
                     <a target="_blank" rel="noopener noreferrer"
                         href="https://docs.google.com/document/d/e/2PACX-1vQbXTRzdV-BcC8i2GIAHkoCZ_nA4n3l3oNsjpguv29am3AyN2VGstlp2um-pzmR9uWFPoAkmJ905Wq3/pub">
