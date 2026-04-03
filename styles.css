@@ -610,6 +610,11 @@ section {
    10. COMPONENTS - POP UP
 ============================================================================= */
 
+#popUp {
+    display: block;
+    min-height: 1px;
+}
+
 .popUpFrame {
     position: fixed;
     right: 1rem;

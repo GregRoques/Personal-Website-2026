@@ -26,7 +26,7 @@ const INSTAGRAM_API_URL = `${window.location.protocol}//${window.location.hostna
 
 
 const POPUP_CONFIG = {
-    endDate: new Date(2026, 3, 11),
+    endDate: new Date(2026, 3, 12),
     imageUrl: "images/popup/popupImage-1.jpg",
     linkUrl: "https://marathon-paris.dossards-solidaires.org/fundraisers/greg-roques?utm_campaign=dossards-solidaires&utm_content=new_action&utm_medium=email-auto&utm_source=kentaa",
     showDelay: 1000,

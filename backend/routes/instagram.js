@@ -26,7 +26,7 @@ const transporter = nodemailer.createTransport({
 const TOKEN_PATH = path.join(__dirname, "../util/instaToken.json");
 const CACHE_PATH = path.join(__dirname, "../util/instaCache.json");
 
-const INSTAGRAM_API = "https://graph.instagram.com/v25.0";
+const INSTAGRAM_API = "https://graph.instagram.com";
 const MEDIA_FIELDS =
   "media_url,permalink,caption,timestamp,media_type,thumbnail_url,username,children{media_url,media_type,thumbnail_url}";
 const POST_LIMIT = 5;
@@ -34,11 +34,12 @@ const CAPTION_MAX_LENGTH = 75;
 const TOKEN_REFRESH_DAYS = 50;
 const MS_PER_DAY = 86400000;
 
-/** @type {{ access_token: string, token_type: string, expires_at: number, user_name: string }} */
+/** @type {{ access_token: string, token_type: string, expires_at: number, user_id: string, user_name: string }} */
 let tokenData = loadJson(TOKEN_PATH, {
   access_token: "",
   token_type: "bearer",
   expires_at: 0,
+  user_id: "",
   user_name: "",
 });
 
@@ -153,7 +154,7 @@ async function fetchPosts() {
   }
 
   try {
-    const { data } = await axios.get(`${INSTAGRAM_API}/me/media`, {
+    const { data } = await axios.get(`${INSTAGRAM_API}/${tokenData.user_id}/media`, {
       params: {
         fields: MEDIA_FIELDS,
         limit: POST_LIMIT,
@@ -189,7 +190,8 @@ async function fetchPosts() {
   } catch (err) {
     console.error(
       "[Instagram] Fetch failed:",
-      err.response?.status || err.message
+      err.response?.status || err.message,
+      err.response?.data
     );
     sendErrorEmail(err);
   }
@@ -218,6 +220,7 @@ async function refreshToken() {
       access_token: data.access_token,
       token_type: data.token_type || "bearer",
       expires_at: Date.now() + data.expires_in * 1000,
+      user_id: tokenData.user_id,
       user_name: tokenData.user_name,
     };
 
