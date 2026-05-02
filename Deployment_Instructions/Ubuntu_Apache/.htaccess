@@ -1,0 +1,6 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    Redirect /resume https://docs.google.com/document/d/e/2PACX-1vQbXTRzdV-BcC8i2GIAHkoCZ_nA4n3l3oNsjpguv29am3AyN2VGstlp2um-pzmR9uWFPoAkmJ905Wq3/pub 
+    ErrorDocument 404 https://gregroques.com
+</IfModule>
+

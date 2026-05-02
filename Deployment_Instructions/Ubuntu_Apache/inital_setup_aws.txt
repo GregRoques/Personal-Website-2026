@@ -1,0 +1,39 @@
+Commands from initial SSH
+
+$ sudo apt update
+$ clear
+$ sudo apt install apache2
+$ cd /etc/apache2/sites-available/
+$ clear
+$ ls
+$ sudo vi [NAME OF YOUR CONF FILE].conf
+$ cd /var/www
+$ sudo git clone https://[LINK TO GITHUB REPO] [NAME YOUR FOLDER HERE]
+  -- see below to make ownership of this folder recursive (line 25)
+$ sudo a2ensite [NAME OF YOUR CONF FILE].conf 
+$ sudo service apache2 restart
+$ sudo apt-get update
+$ clear
+$ sudo apt-get install software-properties-common
+$ cd /etc/apache2/sites-available/
+$ sudo add-apt-repository ppa:certbot/certbot
+$ clear
+$ sudo apt-get update
+$ sudo apt install certbot python3-certbot-apache
+$ clear
+$ sudo certbot --apache
+
+** You will need the proxy for your backend calls
+$ sudo a2enmod proxy
+$ sudo a2enmod proxy_http
+
+** Set up backend server if needed
+cd /etc/apache2/sites-available/[Your Site Folder]/backend
+sudo apt install npm
+sudo npm i 
+sudo npm install pm2@latest -g
+
+========================================= remove sudo (helps to implement before dropping image files for photo gallery in FileZilla)
+
+- cd into /var/www
+- sudo chown -R ubuntu(or root, whoever you want to grant access to) [NAME OF FOLDER WITH YOUR PROJECT INSIDE]
