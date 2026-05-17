@@ -81,6 +81,12 @@ router.post("/", contactLimiter, validationRules, async (req, res) => {
     return res.status(400).json({ success: false, errors: errors.array() });
   }
 
+  // Check for honeypot value
+  if (req.body.honeypot && req.body.honeypot.trim().length > 0) { 
+    // Silently return success to the bot without sending an email
+    return res.status(200).json({ success: true, message: "Message sent successfully." });
+  }
+
   try {
     const name = xss(req.body.name);
     const email = xss(req.body.email);

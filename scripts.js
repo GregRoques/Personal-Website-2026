@@ -226,6 +226,9 @@ async function openContactForm() {
     const result = await Swal.fire({
         title: "Contact Me",
         html:
+            '<div class="swal-honeypot">' +
+                '<input id="swal-honeypot" aria-hidden="true" tabindex="-1" autocomplete="off" placeholder="Your Website" type="text">' +
+            '</div>' +
             '<input id="swal-name" class="swal2-input" placeholder="Name" type="text" maxlength="100">' +
             '<input id="swal-email" class="swal2-input" placeholder="Email" type="email">' +
             '<input id="swal-phone" class="swal2-input" placeholder="Phone (optional)" type="tel" maxlength="10">' +
@@ -239,11 +242,18 @@ async function openContactForm() {
         showLoaderOnConfirm: true,
         allowOutsideClick: () => !Swal.isLoading(),
         preConfirm: async () => {
+            const honeypot = document.getElementById("swal-honeypot").value;
             const name = document.getElementById("swal-name").value.trim();
             const email = document.getElementById("swal-email").value.trim();
             const phone = document.getElementById("swal-phone").value.trim();
             const subject = document.getElementById("swal-subject").value.trim();
             const message = document.getElementById("swal-message").value.trim();
+
+            // Honeypot Trigger: If a bot filled out this hidden field, fail silently
+            // We return a fake success response to trick the bot script so it leaves
+            if (honeypot.length > 0) {
+                return { success: true, message: "Message sent successfully." };
+            }
 
             if (!name || !email || !subject || !message) {
                 Swal.showValidationMessage("All fields are required.");
@@ -269,7 +279,7 @@ async function openContactForm() {
                 const response = await fetch(CONTACT_API_URL, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ name, email, phone: formattedPhone, subject, message }),
+                    body: JSON.stringify({ name, email, phone: formattedPhone, subject, message, honeypot }),
                 });
 
                 const data = await response.json();
