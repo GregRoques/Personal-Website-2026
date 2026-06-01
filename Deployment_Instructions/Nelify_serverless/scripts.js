@@ -92,7 +92,8 @@ function initIntersectionObserver(elements) {
                 } else {
                     target.classList.add("show");
                     // Remove hidden class after animation completes
-                    setTimeout(() => target.classList.remove("hidden"), 3000);
+                    const delay = target.classList.contains("intro-tagline") ? 5000 : 3000;
+                    setTimeout(() => target.classList.remove("hidden"), delay);
                 }
 
                 observer.unobserve(target);
